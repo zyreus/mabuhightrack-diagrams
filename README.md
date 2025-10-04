@@ -1,7 +1,8 @@
-"mermaid
+```mermaid
+
 flowchart LR
   %% MabuHighTrack – End-to-End Activity (Mermaid)
-  %% Swimlanes are approximated with subgraphs
+  %% Swimlanes approximated using subgraphs
 
   subgraph ADMIN["Administrator"]
     A1["Register teacher & student accounts"]
@@ -72,4 +73,6 @@ flowchart LR
   D1 --> D2
   P1 --> P2
 
-  S9 --> A3  %% end-of-cycle admin review"
+  S9 --> A3
+
+  ```
