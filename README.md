@@ -76,3 +76,4 @@ flowchart LR
   S9 --> A3
 
   ```
+mmdc -i activity-diagram.mmd -o activity-diagram.png
