@@ -1,21 +1,6 @@
-# 🏫 MabuHighTrack – Diagrams
-
-This repo shows how to render Mermaid diagrams directly on **GitHub**.
-
-- 📄 **Use Case / Activity Diagram (Markdown page):** [`diagrams/usecase-activity.md`](diagrams/usecase-activity.md)
-- 🖼️ **Auto-exported SVG (via GitHub Actions):** `diagrams/usecase-activity.svg` (generated after your first push)
-
-## Quick Start
-1. Create a new GitHub repo and upload this folder.
-2. Open `diagrams/usecase-activity.md` on GitHub → it **renders**.
-3. Optional: the included GitHub Action exports `usecase-activity.mmd` to **SVG** on each push.
-
----
-
-## Inline preview
-
+```mermaid
 flowchart LR
-  %% MabuHighTrack – Use Case Diagram (Mermaid approximation)
+  %% MabuHighTrack – Use Case Diagram (Mermaid)
 
   subgraph SYS["MabuhighTrack System"]
     U1(["View Grades & Attendance"])
