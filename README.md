@@ -14,28 +14,27 @@ This repo shows how to render Mermaid diagrams directly on **GitHub**.
 
 ## Inline preview
 
-```mermaid
 flowchart LR
   %% MabuHighTrack – Use Case Diagram (Mermaid approximation)
 
-  subgraph SYS[MabuhighTrack System]
-    U1([View Grades & Attendance])
-    U2([View Predicted Academic Performance])
-    U3([Edit Sociodemographic information])
-    CORE([Student Performance Prediction])
+  subgraph SYS["MabuhighTrack System"]
+    U1(["View Grades & Attendance"])
+    U2(["View Predicted Academic Performance"])
+    U3(["Edit Sociodemographic information"])
+    CORE(["Student Performance Prediction"])
 
-    T1([Input & Edit Grades (assigned subjects)])
-    T2([View student sociodemographic info])
-    T3([View predicted performance for assigned subject])
+    T1(["Input & Edit Grades (assigned subjects)"])
+    T2(["View student sociodemographic info"])
+    T3(["View predicted performance for assigned subject"])
 
-    A1([View Advisory Class Student Details])
-    A2([View Advisory Class Grades & Attendance])
+    A1(["View Advisory Class Student Details"])
+    A2(["View Advisory Class Grades & Attendance"])
 
-    AD1([Register Teachers & Student Account])
-    AD2([View all grades, predictions & other data])
-    AD3([Print Reports])
+    AD1(["Register Teachers & Student Account"])
+    AD2(["View all grades, predictions & other data"])
+    AD3(["Print Reports"])
 
-    P1([Review Reports / Analytics])
+    P1(["Review Reports / Analytics"])
   end
 
   Student[[Student]] --> U1
@@ -60,5 +59,3 @@ flowchart LR
 
   Principal[[Principal]] --> P1
   P1 -. include .-> AD2
-
-```
