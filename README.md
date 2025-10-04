@@ -1,3 +1,4 @@
+```mermaid
 flowchart LR
   %% MabuHighTrack – End-to-End Activity (Mermaid)
   %% Swimlanes are approximated with subgraphs
