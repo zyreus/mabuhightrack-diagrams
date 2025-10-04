@@ -1,46 +1,74 @@
-```mermaid
 flowchart LR
-  %% MabuHighTrack – Use Case Diagram (Mermaid)
+  %% MabuHighTrack – End-to-End Activity (Mermaid)
+  %% Swimlanes are approximated with subgraphs
 
-  subgraph SYS["MabuhighTrack System"]
-    U1(["View Grades & Attendance"])
-    U2(["View Predicted Academic Performance"])
-    U3(["Edit Sociodemographic information"])
-    CORE(["Student Performance Prediction"])
-
-    T1(["Input & Edit Grades (assigned subjects)"])
-    T2(["View student sociodemographic info"])
-    T3(["View predicted performance for assigned subject"])
-
-    A1(["View Advisory Class Student Details"])
-    A2(["View Advisory Class Grades & Attendance"])
-
-    AD1(["Register Teachers & Student Account"])
-    AD2(["View all grades, predictions & other data"])
-    AD3(["Print Reports"])
-
-    P1(["Review Reports / Analytics"])
+  subgraph ADMIN["Administrator"]
+    A1["Register teacher & student accounts"]
+    A2["Set school year / semester"]
+    A3["Configure subjects / sections"]
   end
 
-  Student[[Student]] --> U1
-  Student[[Student]] --> U2
-  Student[[Student]] --> U3
-  U2 -. include .-> CORE
+  subgraph SYS["System"]
+    S1["Create user records and send credentials"]
+    S2{"Credentials valid?"}
+    S3["Validate input completeness"]
+    S4{"Data complete?"}
+    S5["Persist grades & attendance"]
+    S6["Run performance prediction (LightGBM)"]
+    S7["Store / update prediction results"]
+    S8["Recompute prediction if data changed"]
+    S9["Update dashboards & reports"]
+  end
 
-  Teacher[[Subject Teacher]] --> T1
-  Teacher[[Subject Teacher]] --> T2
-  Teacher[[Subject Teacher]] --> T3
-  T3 -. include .-> CORE
+  subgraph STUD["Student"]
+    U1["Receive credentials • log in"]
+    U2["View profile / dashboard"]
+    U3["Error: invalid credentials"]
+    U4["View grades & attendance"]
+    U5["View predicted performance / risk"]
+    U6{"Wants clarification?"}
+    U7["Submit concern / request"]
+  end
 
-  Adviser[[Adviser]] --> A1
-  Adviser[[Adviser]] --> A2
-  A2 -. include .-> CORE
+  subgraph TEACH["Subject Teacher"]
+    T1["Input or edit grades: WW, PT, QA"]
+    T2["Record attendance"]
+    T3["Verify records after concern"]
+    T4{"Correction needed?"}
+    T5["Edit entries then resave"]
+    T6["Send explanation to student"]
+  end
 
-  Administrator[[Administrator]] --> AD1
-  Administrator[[Administrator]] --> AD2
-  Administrator[[Administrator]] --> AD3
-  AD2 -. include .-> CORE
-  AD3 -. include .-> AD2
+  subgraph ADV["Adviser"]
+    D1["Open advisory class dashboard"]
+    D2["Download or print advisory report"]
+  end
 
-  Principal[[Principal]] --> P1
-  P1 -. include .-> AD2
+  subgraph PRIN["Principal"]
+    P1["Open analytics dashboard"]
+    P2["Review school-wide reports: grades, attendance, at-risk, trends"]
+  end
+
+  %% Flow
+  A1 --> A2 --> A3 --> S1
+  S1 --> U1 --> S2
+  S2 -- "Yes" --> U2
+  S2 -- "No"  --> U3 --> U1
+
+  T1 --> T2 --> S3
+  S3 --> S4
+  S4 -- "Yes" --> S5 --> S6 --> S7
+  S4 -- "No"  --> T1
+
+  U2 --> U4 --> U5 --> U6
+  U6 -- "Yes" --> U7 --> T3
+  U6 -- "No"  --> S9
+
+  T3 --> T4
+  T4 -- "Yes" --> T5 --> S8 --> S9
+  T4 -- "No"  --> T6 --> S9
+
+  D1 --> D2
+  P1 --> P2
+
+  S9 --> A3  %% end-of-cycle admin review
